@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/PlayerPlane.gd" type="Script" id=2]
+[ext_resource path="res://assets/jet.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 84.358, 17.0166 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.194286 )
+colors = PoolColorArray( 0.914795, 0.859457, 0.0875487, 1, 1, 0, 0, 0.317647 )
+
+[node name="PlayerPlane" type="KinematicBody2D"]
+collision_mask = 12
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -1, 0 )
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="jet" type="Sprite" parent="."]
+position = Vector2( 0.210155, -1.10911 )
+scale = Vector2( 0.146855, 0.146855 )
+texture = ExtResource( 3 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2( -88.79, -0.0287457 )
+scale = Vector2( 5, 5 )
+amount = 50
+lifetime = 0.75
+explosiveness = 0.12
+direction = Vector2( -1, 0 )
+spread = 19.84
+gravity = Vector2( 0, 0 )
+initial_velocity = 20.0
+initial_velocity_random = 0.24
+angular_velocity = 92.9
+linear_accel = 47.31
+linear_accel_random = 0.24
+color_ramp = SubResource( 2 )
