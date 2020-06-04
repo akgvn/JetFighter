@@ -40,7 +40,7 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/jet.png"
-config/windows_native_icon="res://assets/jet.ico"
+config/windows_native_icon="res://export/icon.ico"
 
 [autoload]
 
