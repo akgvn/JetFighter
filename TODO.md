@@ -2,7 +2,7 @@
 # TODO
 
 - [ ] Move graphic assets to a spritesheet
-- [ ] A favicon for Windows executable
+- [ ] ~~A favicon for Windows executable~~ -> Doesn't work for some reason
 - [ ] Change the splash screen logo
 - [ ] Better particles?
 	- [ ] Explosion animation could be better

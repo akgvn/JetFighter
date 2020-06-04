@@ -6,17 +6,20 @@ var high_score := 0
 var dead = false
 var current_score := 0
 var begin := false
+onready var paused_label = get_tree().get_current_scene().get_node("HUD/Paused")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.load_highscore()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	paused_label.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if Input.is_action_just_released("pause_button") and not self.dead:
+	if Input.is_action_just_released("pause_button") and not self.dead and self.begin:
+		paused_label.visible = not paused_label.visible
 		get_tree().paused = not get_tree().paused
 
 	# TODO Use a general action from Godot setting instead of a key.
