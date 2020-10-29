@@ -1,14 +1,16 @@
 extends KinematicBody2D
 class_name Projectile
 
-var _speed: Vector2
-export (int) var multiplier := 1 
+var _direction: Vector2
+export (int) var speed := 750
 var is_enemy = false
 
-func init(pos: Vector2, rot: int, speed: Vector2, is_enemy := false):
+func init(pos: Vector2, direction: Vector2, is_enemy := false):
 	self.position = pos
-	self.rotation_degrees = rot
-	self._speed = speed
+
+	if is_enemy: self.scale.x = -1
+	self.rotation_degrees = rad2deg(atan(direction.y / direction.x))
+	self._direction = direction
 	if is_enemy: 
 		self.is_enemy = true
 		self.set_collision_layer(8)
@@ -17,8 +19,8 @@ func init(pos: Vector2, rot: int, speed: Vector2, is_enemy := false):
 	else: self.set_collision_layer(2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	var collision_info = move_and_collide(_speed * multiplier)
+func _process(delta):
+	var collision_info = move_and_collide(_direction * speed * delta)
 	if collision_info:
 		var body := instance_from_id(collision_info.get_collider_id())
 		if not is_enemy and body.name == "Player":

@@ -10,9 +10,9 @@ func _ready():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	var movement_vector := Vector2.ZERO
-	var speed = 7
+	var speed = 7 * 70 # 75 is for delta thing
 
 	if Input.is_action_pressed("ui_up"):
 		movement_vector.y = -1
@@ -43,7 +43,7 @@ func _process(_delta):
 	
 	movement_vector = movement_vector.normalized()
 
-	var collision_info := move_and_collide(movement_vector * speed)
+	var collision_info := move_and_collide(movement_vector * speed * delta)
 
 	if collision_info:
 		var body := instance_from_id(collision_info.get_collider_id())
@@ -64,8 +64,8 @@ func _fire_projectile():
 	if not fired:
 		var pr: Projectile = load("res://src/Projectile.tscn").instance()
 		var pos := Vector2(self.position.x, self.position.y + 45)
-		var vert = tan(deg2rad(self.rotation_degrees)) # Calculate vertical speed
-		pr.init(pos, self.rotation_degrees, Vector2(2, vert))
+		var vertical_speed = tan(deg2rad(self.rotation_degrees))
+		pr.init(pos, Vector2(1, vertical_speed))
 		get_parent().add_child(pr)
 		fired = true
 		timer.start()

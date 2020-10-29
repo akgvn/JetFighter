@@ -5,37 +5,45 @@ onready var rc: RayCast2D = $RayCast2D
 var fired = false
 var dead = false
 var is_random_direction = false
+export(int) var enemy_movement_speed = 150
+export(int) var degree = 0 # For the vertical degree constraints.
 
 func init(pos: Vector2, current_score: int):
 	self.position = pos
-	# Make the game harder
+	
+	# Make the game harder progressively.
 	if current_score > 10: $Timer.wait_time = 0.75
-	elif current_score > 1: self.is_random_direction = true
+	elif current_score > 15: self.is_random_direction = true
 	elif current_score > 20: $Timer.wait_time = 0.50
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	var dir = Vector2(-150, 0)
-	move_and_slide(dir)
+func _process(delta):
+	var dir = Vector2(-1 * enemy_movement_speed, 0)
+	move_and_slide(dir * delta * 60)
+	
 	var body = rc.get_collider()
 	if fired and ($Timer.time_left < 0.1):
 		fired = false
 	if body and (body.name == "Player") and (not fired) and $VisibilityNotifier2D.is_on_screen():
+		var origin: Vector2 = rc.global_transform.origin
+		var collision_point: Vector2 = rc.get_collision_point()
+		var distance = origin.distance_to(collision_point)
+		
 		var pr: Projectile = load("res://src/Projectile.tscn").instance()
 		var pos = self.position
 		pos.y += 15
 		pos.x -= 70
-		var vertical_dir = 0
-		var degrees = 180
 
-		# FIXME Enemy projectile should go in a reasonable direction. Playtest!
-		#if is_random_direction:
-		#	vertical_dir = (randi() % 60)
-		#	degrees -= vertical_dir
-		#	vertical_dir = tan(deg2rad(vertical_dir))
+		var vertical_direction: float = 0
+		var horizontal_direction: float = -1
 
-		pr.init(pos, degrees, Vector2(-2, vertical_dir), true)
+		var min_distance = 100 # TODO Find a optimal value for this by playtesting!
+		if is_random_direction and distance > min_distance:
+			vertical_direction = Global.rng.randf_range(-0.3, 0.3)
+
+		var pr_direction = Vector2(horizontal_direction, vertical_direction)
+		pr.init(pos, pr_direction, true)
 		get_parent().add_child(pr)
 		self.fired = true
 		$Timer.start()

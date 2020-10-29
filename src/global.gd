@@ -7,6 +7,7 @@ var dead = false
 var current_score := 0
 var begin := false
 onready var paused_label = get_tree().get_current_scene().get_node("HUD/Paused")
+var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,15 +16,13 @@ func _ready():
 	self.pause_mode = Node.PAUSE_MODE_PROCESS
 	paused_label.visible = false
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_released("pause_button") and not self.dead and self.begin:
 		paused_label.visible = not paused_label.visible
 		get_tree().paused = not get_tree().paused
 
-	# TODO Use a general action from Godot setting instead of a key.
-	if self._key_f_released():
+	if Input.is_action_just_released("fullscreen_button"):
 		self.fullscreen = not self.fullscreen
 		OS.set_window_fullscreen(self.fullscreen)
 
@@ -51,12 +50,3 @@ func load_highscore():
 		hs = file.get_16()
 		file.close()
 	self.high_score = hs
-
-# TODO This should be deleted when action thing is added.
-func _key_f_released() -> bool:
-	if Input.is_key_pressed(KEY_F):
-		self._pressed = true
-	elif (self._pressed == true):
-		self._pressed = false
-		return true
-	return false
