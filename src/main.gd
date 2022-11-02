@@ -7,11 +7,11 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	over.visible = false
-	OS.set_window_fullscreen(Global.fullscreen)
+	Global.update_window_size()
 	Global.dead = false
 	score_label.visible = true
 	Global.current_score = 0
-	high_score_label.text = "High Score: " + (Global.get_highscore() as String)
+	high_score_label.text = "High Score: " + Global.get_highscore()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -19,9 +19,9 @@ func _process(_delta):
 		$HUD/Start.visible = true
 
 	if score_label and not Global.dead:
-		score_label.text = "Score: " + (Global.current_score as String)
+		score_label.text = "Score: " + Global.current_score
 		if Global.current_score > Global.high_score:
-			high_score_label.text = "High Score: " + (Global.get_highscore() as String)
+			high_score_label.text = "High Score: " + Global.get_highscore()
 		
 	var player = $Player
 	if player == null:

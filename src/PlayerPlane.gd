@@ -4,6 +4,7 @@ const zero_rot := 0.0
 var rot := zero_rot
 @onready var timer = $Timer
 var fired = false
+var rotation_degrees := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,7 +40,9 @@ func _process(delta):
 	if Input.is_action_just_released("ui_accept"):
 		self._fire_projectile()
 	
+	var rot_degrees = rad_to_deg(self.rotation)
 	self.rotation_degrees = lerp(self.rotation_degrees, rot, 0.15)
+	self.rotation = deg_to_rad(self.rotation_degrees)
 	
 	movement_vector = movement_vector.normalized()
 

@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Projectile
 
 var _direction: Vector2
-@export (int) var speed := 750
+@export var speed := 750
 var is_enemy = false
 
 func init(pos: Vector2, direction: Vector2, is_enemy := false):

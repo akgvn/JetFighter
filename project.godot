@@ -18,10 +18,16 @@ _global_script_classes=[{
 "class": &"Enemy",
 "language": &"GDScript",
 "path": "res://src/Enemy.gd"
+}, {
+"base": "CharacterBody2D",
+"class": &"Projectile",
+"language": &"GDScript",
+"path": "res://src/Projectile.gd"
 }]
 _global_script_class_icons={
 "Boom": "",
-"Enemy": ""
+"Enemy": "",
+"Projectile": ""
 }
 
 [application]

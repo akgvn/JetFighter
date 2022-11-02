@@ -1,8 +1,8 @@
 extends Node
 
-@export var cloud1_speed: float := 1.1
-@export var cloud2_speed: float := 0.7
-@export var cloud3_speed: float := 0.3
+@export var cloud1_speed: float = 1.1
+@export var cloud2_speed: float = 0.7
+@export var cloud3_speed: float = 0.3
 
 var mountain_speed := 1.6
 

@@ -1,13 +1,18 @@
 extends Node
 
 var fullscreen := true
-var _pressed := false
 var high_score := 0
 var dead = false
 var current_score := 0
 var begin := false
 @onready var paused_label = get_tree().get_current_scene().get_node("HUD/Paused")
 var rng = RandomNumberGenerator.new()
+
+func update_window_size():
+	if self.fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +29,7 @@ func _process(_delta):
 
 	if Input.is_action_just_released("fullscreen_button"):
 		self.fullscreen = not self.fullscreen
-		OS.set_window_fullscreen(self.fullscreen)
+		self.update_window_size()
 
 	# UI cancel is ESC in keyboard, or B in Xinput. Might change this later.
 	if Input.is_action_pressed("ui_cancel"):
@@ -37,16 +42,13 @@ func get_highscore() -> int:
 	return self.high_score
 
 func save_highscore():
-	var file = File.new()
-	file.open("user://score.dat", File.WRITE)
+	var file := FileAccess.open("user://score.dat", FileAccess.WRITE)
 	file.store_16(self.high_score)
-	file.close()
 
 func load_highscore():
-	var file = File.new()
 	var hs := 0
-	if file.file_exists("user://score.dat"):
-		file.open("user://score.dat", File.READ)
+	if FileAccess.file_exists("user://score.dat"):
+		var file := FileAccess.open("user://score.dat", FileAccess.READ)
 		hs = file.get_16()
-		file.close()
+
 	self.high_score = hs
