@@ -4,6 +4,7 @@ class_name Player
 const zero_rot := 0.0
 var rot := zero_rot
 @onready var timer = $Timer
+@onready var particles = $CPUParticles2D
 var fired = false
 var rotation_degrees := 0.0
 
@@ -34,9 +35,9 @@ func _process(delta):
 	if Input.is_action_pressed("ui_right"):
 		movement_vector.x = 1
 		rot = 0
-		$CPUParticles2D.emitting = true
+		particles.emitting = true
 	else:
-		$CPUParticles2D.emitting = false
+		particles.emitting = false
 	
 	if Input.is_action_just_released("ui_accept"):
 		self._fire_projectile()

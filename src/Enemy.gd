@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @onready var rc: RayCast2D = $RayCast2D
+@onready var timer: Timer = $Timer
 var fired = false
 var dead = false
 var is_random_direction = false
@@ -12,9 +13,9 @@ func init(pos: Vector2, current_score: int):
 	self.position = pos
 	
 	# Make the game harder progressively.
-	if current_score > 10: $Timer.wait_time = 0.75
+	if current_score > 10: timer.wait_time = 0.75
 	elif current_score > 15: self.is_random_direction = true
-	elif current_score > 20: $Timer.wait_time = 0.50
+	elif current_score > 20: timer.wait_time = 0.50
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,7 +25,7 @@ func _process(delta):
 	move_and_slide()
 	
 	var body = rc.get_collider()
-	if fired and ($Timer.time_left < 0.1):
+	if fired and (timer.time_left < 0.1):
 		fired = false
 	if body and (body.name == "Player") and (not fired) and $VisibleOnScreenNotifier2D.is_on_screen():
 		var origin: Vector2 = rc.global_transform.origin
@@ -47,7 +48,7 @@ func _process(delta):
 		pr.init(pos, pr_direction, true)
 		get_parent().add_child(pr)
 		self.fired = true
-		$Timer.start()
+		timer.start()
 
 # If the enemy gets past the player, decrement their score.
 func _on_VisibilityNotifier2D_screen_exited():

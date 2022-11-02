@@ -1,48 +1,44 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://dsyckcq6fm3ga"]
 
-[ext_resource path="res://assets/Heli.svg" type="Texture2D" id=1]
-[ext_resource path="res://src/Enemy.gd" type="Script" id=2]
-[ext_resource path="res://assets/Heli 2.svg" type="Texture2D" id=3]
+[ext_resource type="Texture2D" uid="uid://dn7k1qldjrl4o" path="res://assets/Heli.svg" id="1"]
+[ext_resource type="Script" path="res://src/Enemy.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bjrebsnmgrv4r" path="res://assets/Heli 2.svg" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 54.312, 15.0355 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(108.624, 30.071)
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+[sub_resource type="SpriteFrames" id="2"]
+animations = [{
+"frames": [ExtResource("1"), ExtResource("3")],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 45.0
-} ]
+}]
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 6
 collision_mask = 3
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 13.9398, 0.654949 )
+position = Vector2(13.9398, 0.654949)
 rotation = -0.337186
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
-position = Vector2( 41.3719, -8.68081 )
-scale = Vector2( 2.80452, 1.9121 )
+position = Vector2(41.3719, -8.68081)
+scale = Vector2(2.80452, 1.9121)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( -9.65876, 22.3225 )
-enabled = true
-cast_to = Vector2( -1500, -45 )
+position = Vector2(-9.65876, 22.3225)
+target_position = Vector2(-10000, 0)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 
 [node name="Heli" type="AnimatedSprite2D" parent="."]
-scale = Vector2( 0.1, 0.17 )
-frames = SubResource( 2 )
+scale = Vector2(0.1, 0.17)
+frames = SubResource("2")
 playing = true
-__meta__ = {
-"_edit_lock_": true
-}
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
