@@ -1,8 +1,9 @@
 extends Node2D
 
-@onready var over = $HUD/Game_Over
-@onready var score_label = $HUD/Score
-@onready var high_score_label = $HUD/High_Score
+@onready var over: Label = $HUD/Game_Over
+@onready var score_label: Label = $HUD/Score
+@onready var high_score_label: Label = $HUD/High_Score
+@onready var start_hud: Label = $HUD/Start
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,14 +17,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if not Global.begin:
-		$HUD/Start.visible = true
+		start_hud.visible = true
 
 	if score_label and not Global.dead:
-		score_label.text = "Score: " + Global.current_score
-		if Global.current_score > Global.high_score:
-			high_score_label.text = "High Score: " + Global.get_highscore()
+		score_label.text = "Score: " + String.num_int64(Global.current_score)
+		high_score_label.text = "High Score: " + String.num_int64(Global.get_highscore())
 		
-	var player = $Player
+	var player: Player = $Player
 	if player == null:
 		Global.dead = true
 		over.visible = true
@@ -33,7 +33,7 @@ func _process(_delta):
 		player.position.y = clamp(player.position.y, 64.0, 640.0)
 	
 	if Input.is_action_pressed("ui_accept"):
-		$HUD/Start.hide()
+		start_hud.hide()
 		Global.begin = true
 	if Input.is_key_pressed((KEY_R)): 
 		# Restart everything

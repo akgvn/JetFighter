@@ -11,7 +11,7 @@ func _ready():
 	self.visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta):	
 	$"Cloud 1".move_local_x(-cloud1_speed)
 	$"Cloud 2".move_local_x(-cloud2_speed)
 	$"Cloud 3".move_local_x(-cloud3_speed)

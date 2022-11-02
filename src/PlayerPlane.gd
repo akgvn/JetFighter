@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const zero_rot := 0.0
 var rot := zero_rot
@@ -41,7 +42,7 @@ func _process(delta):
 		self._fire_projectile()
 	
 	var rot_degrees = rad_to_deg(self.rotation)
-	self.rotation_degrees = lerp(self.rotation_degrees, rot, 0.15)
+	self.rotation_degrees = lerp(rot_degrees, rot, 0.15)
 	self.rotation = deg_to_rad(self.rotation_degrees)
 	
 	movement_vector = movement_vector.normalized()

@@ -43,12 +43,13 @@ func get_highscore() -> int:
 
 func save_highscore():
 	var file := FileAccess.open("user://score.dat", FileAccess.WRITE)
-	file.store_16(self.high_score)
+	file.store_16(get_highscore())
 
 func load_highscore():
 	var hs := 0
 	if FileAccess.file_exists("user://score.dat"):
 		var file := FileAccess.open("user://score.dat", FileAccess.READ)
 		hs = file.get_16()
+		print("hs is ", hs)
 
 	self.high_score = hs
