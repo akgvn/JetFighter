@@ -1,12 +1,12 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name Enemy
 
-onready var rc: RayCast2D = $RayCast2D
+@onready var rc: RayCast2D = $RayCast2D
 var fired = false
 var dead = false
 var is_random_direction = false
-export(int) var enemy_movement_speed = 150
-export(int) var degree = 0 # For the vertical degree constraints.
+@export var enemy_movement_speed: int = 150
+@export var degree: int = 0 # For the vertical degree constraints.
 
 func init(pos: Vector2, current_score: int):
 	self.position = pos
@@ -20,17 +20,18 @@ func init(pos: Vector2, current_score: int):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var dir = Vector2(-1 * enemy_movement_speed, 0)
-	move_and_slide(dir * delta * 60)
+	set_velocity(dir * delta * 60)
+	move_and_slide()
 	
 	var body = rc.get_collider()
 	if fired and ($Timer.time_left < 0.1):
 		fired = false
-	if body and (body.name == "Player") and (not fired) and $VisibilityNotifier2D.is_on_screen():
+	if body and (body.name == "Player") and (not fired) and $VisibleOnScreenNotifier2D.is_on_screen():
 		var origin: Vector2 = rc.global_transform.origin
 		var collision_point: Vector2 = rc.get_collision_point()
 		var distance = origin.distance_to(collision_point)
 		
-		var pr: Projectile = load("res://src/Projectile.tscn").instance()
+		var pr: Projectile = load("res://src/Projectile.tscn").instantiate()
 		var pos = self.position
 		pos.y += 15
 		pos.x -= 70

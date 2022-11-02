@@ -17,6 +17,6 @@ func _on_Timer_timeout():
 		return
 	var x = randi() % 500 + 1280
 	var y = randi() % 600 + 64
-	var e: Enemy = load("res://src/Enemy.tscn").instance()
+	var e: Enemy = load("res://src/Enemy.tscn").instantiate()
 	e.init(Vector2(x, y), current_score)
 	add_child(e)

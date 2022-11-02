@@ -1,8 +1,8 @@
 extends Node2D
 
-onready var over = $HUD/Game_Over
-onready var score_label = $HUD/Score
-onready var high_score_label = $HUD/High_Score
+@onready var over = $HUD/Game_Over
+@onready var score_label = $HUD/Score
+@onready var high_score_label = $HUD/High_Score
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

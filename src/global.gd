@@ -6,14 +6,14 @@ var high_score := 0
 var dead = false
 var current_score := 0
 var begin := false
-onready var paused_label = get_tree().get_current_scene().get_node("HUD/Paused")
+@onready var paused_label = get_tree().get_current_scene().get_node("HUD/Paused")
 var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.load_highscore()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	self.pause_mode = Node.PAUSE_MODE_PROCESS
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	paused_label.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

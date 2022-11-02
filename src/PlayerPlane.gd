@@ -1,8 +1,8 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 const zero_rot := 0.0
 var rot := zero_rot
-onready var timer = $Timer
+@onready var timer = $Timer
 var fired = false
 
 # Called when the node enters the scene tree for the first time.
@@ -48,7 +48,7 @@ func _process(delta):
 	if collision_info:
 		var body := instance_from_id(collision_info.get_collider_id())
 		if "Enemy" in body.name: # FIXME Find a better way to do this.
-			var explosion: Boom = load("res://src/Boom.tscn").instance()
+			var explosion: Boom = load("res://src/Boom.tscn").instantiate()
 			explosion.init(self.position)
 			get_parent().add_child(explosion)
 			
@@ -62,9 +62,9 @@ func _fire_projectile():
 		fired = false
 
 	if not fired:
-		var pr: Projectile = load("res://src/Projectile.tscn").instance()
+		var pr: Projectile = load("res://src/Projectile.tscn").instantiate()
 		var pos := Vector2(self.position.x, self.position.y + 45)
-		var vertical_speed = tan(deg2rad(self.rotation_degrees))
+		var vertical_speed = tan(deg_to_rad(self.rotation_degrees))
 		pr.init(pos, Vector2(1, vertical_speed))
 		get_parent().add_child(pr)
 		fired = true
