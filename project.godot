@@ -62,7 +62,6 @@ gdscript/warnings/unsafe_call_argument=true
 
 [display]
 
-window/size/borderless=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/size/width=1280

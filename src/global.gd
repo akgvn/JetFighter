@@ -31,7 +31,7 @@ func _process(_delta):
 		self.fullscreen = not self.fullscreen
 		self.update_window_size()
 
-	# UI cancel is ESC in keyboard, or B in Xinput. Might change this later.
+	# UI cancel is ESC in keyboard. Might change this later.
 	if Input.is_action_pressed("ui_cancel"):
 		self.save_highscore()
 		get_tree().quit()

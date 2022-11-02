@@ -4,12 +4,12 @@
 - Things that were broken as a result of Godot 4 conversion:
 	- [x] Fullscreen does not scale correctly
 		- It sort of does now, may need more fiddling in the project settings
-	- [ ] ESC doesn't exit the game
+	- [x] ESC doesn't exit the game
 	- [x] Highscore and score not shown
 	- [ ] No particle effects (when shooting enemy helis)
 		- They're there but very subtle
 	- [ ] Enemies don't launch rockets
-- [ ] Move graphic assets to a spritesheet
+- [ ] Move graphic assets to a spritesheet / texture atlas
 - [ ] ~~A favicon for Windows executable~~ -> Doesn't work for some reason
 	- I really should rewrite rcedit
 - [ ] Change the splash screen logo
