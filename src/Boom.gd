@@ -1,11 +1,15 @@
 extends Node2D
 class_name Boom
 
+var particles: CPUParticles2D
+
 func init(pos: Vector2):
 	self.position = pos
-	$CPUParticles2D.one_shot = true
+	particles = $CPUParticles2D
+
+	particles.one_shot = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if not ($CPUParticles2D.emitting):
+	if not (particles.emitting):
 		self.queue_free()

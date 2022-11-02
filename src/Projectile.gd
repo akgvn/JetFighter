@@ -4,19 +4,22 @@ class_name Projectile
 var _direction: Vector2
 @export var speed := 750
 var is_enemy = false
+var rotation_degrees := 0.0
 
-func init(pos: Vector2, direction: Vector2, is_enemy := false):
+func init(pos: Vector2, direction: Vector2, enemy := false):
 	self.position = pos
 
-	if is_enemy: self.scale.x = -1
+	if enemy: self.scale.x = -1
 	self.rotation_degrees = rad_to_deg(atan(direction.y / direction.x))
+	self.rotation = deg_to_rad(self.rotation_degrees)
 	self._direction = direction
-	if is_enemy: 
+	if enemy: 
 		self.is_enemy = true
 		self.set_collision_layer(8)
 		self.set_collision_mask_value(0, true)
 		self.set_collision_mask_value(2, false)
-	else: self.set_collision_layer(2)
+	else:
+		self.set_collision_layer(2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
